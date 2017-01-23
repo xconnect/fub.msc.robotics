@@ -1,0 +1,9 @@
+ros/build/*
+build/*
+ros/devel/*
+devel/*
+*.DS_Store
+*.aux
+*.log
+*.out
+*.synctex.gz

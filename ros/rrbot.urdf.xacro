@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<!-- Revolute-Revolute Manipulator -->
+<robot name="rrbot_model" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<!-- Constants for robot dimensions -->
+	<xacro:property name="PI" value="3.1415926535897931"/>
+	<xacro:property name="chassis_height" value="0.2" />
+	<xacro:property name="base_chassis_length" value="0.4" />
+	<xacro:property name="base_chassis_width" value="1.6" />
+	<xacro:property name="cross_chassis_length" value="1.6" />
+	<xacro:property name="cross_chassis_width" value="0.2" />
+	<xacro:property name="wheel_radius" value="0.4" />
+	<xacro:property name="wheel_width" value="0.2" />
+
+	<!-- Import your model behavior in Gazebo -->
+	<xacro:include filename="$(find rrbot_description)/model/rrbot.gazebo.xacro" />
+	<!-- Import Rviz colors -->
+	<xacro:include filename="$(find rrbot_description)/model/materials.xacro" />
+
+	<!-- Define your rrbot model -->
+	<xacro:macro name="rrbot" params="parent name *origin">
+
+		<!-- Propagate the name to all elements to make them unique -->
+		<joint name="${name}_fixed" type="fixed">
+			<insert_block name="origin"/>
+			<parent link="${parent}"/>
+			<child link="${name}_base_chassis"/>
+		</joint>
+
+    <joint name="camera_joint" type="fixed">
+      <axis xyz="0 0 1" />
+      <origin xyz="0 ${cross_chassis_length} ${chassis_height + wheel_radius + 0.1}" rpy="0 0 ${PI/2}"/>
+      <parent link="${name}_base_chassis"/>
+      <child link="camera_link"/>
+    </joint>
+    
+    <!-- Camera -->
+    <link name="camera_link">
+      <visual>
+        <origin xyz="0 0 0.1" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.2 0.2 0.4"/>
+        </geometry>
+        <material name="red"/>
+      </visual>
+
+      <inertial>
+        <mass value="1e-5" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+    </link>
+
+    <joint name="hokuyo_joint" type="fixed">
+      <axis xyz="0 0 1" />
+      <origin xyz="0 0 0.33" rpy="0 0 0"/>
+      <parent link="camera_link"/>
+      <child link="hokuyo_link"/>
+    </joint>
+
+    <!-- Hokuyo Laser -->
+    <link name="hokuyo_link">
+      <collision>      
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.1 0.1 0.1"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://rrbot_description/model/meshes/hokuyo.dae"/>
+        </geometry>
+        <material name="blue"/>
+      </visual>
+
+      <inertial>
+        <mass value="1e-5" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+    </link>
+
+		<!-- Base chassis -->
+		<link name="${name}_base_chassis">
+			<collision>
+				<origin xyz="0 0 ${wheel_radius}" rpy="0 0 0"/>
+				<geometry>
+					<box size="${base_chassis_width} ${base_chassis_length} ${chassis_height}"/>
+				</geometry>
+			</collision>
+
+			<visual>
+				<origin xyz="0 0 ${wheel_radius}" rpy="0 0 0"/>
+				<geometry>
+					<box size="${base_chassis_width} ${base_chassis_length} ${chassis_height}"/>
+				</geometry>
+				<material name="RRBOT/orange"/>
+			</visual>
+
+			<inertial>
+				<origin xyz="0 0 ${wheel_radius}" rpy="0 0 0"/>
+				<mass value="1"/>
+				<inertia
+					ixx="1.0" ixy="0.0" ixz="0.0"
+					iyy="1.0" iyz="0.0"
+					izz="1.0"/>
+			</inertial>
+		</link>
+
+		<!-- Cross chassis -->
+		<link name="${name}_cross_chassis">
+			<collision>
+				<origin xyz="0 ${cross_chassis_length/2} 0" rpy="0 0 0"/>
+				<geometry>
+					<box size="${cross_chassis_width} ${cross_chassis_length} ${chassis_height}"/>
+				</geometry>
+			</collision>
+
+			<visual>
+				<origin xyz="0 ${cross_chassis_length/2} 0" rpy="0 0 0"/>
+				<geometry>
+					<box size="${cross_chassis_width} ${cross_chassis_length} ${chassis_height}"/>
+				</geometry>
+				<material name="RRBOT/orange"/>
+			</visual>
+
+			<inertial>
+				<origin xyz="0 ${cross_chassis_length/2} 0" rpy="0 0 0"/>
+				<mass value="1"/>
+				<inertia
+					ixx="1.0" ixy="0.0" ixz="0.0"
+					iyy="1.0" iyz="0.0"
+					izz="1.0"/>
+			</inertial>
+		</link>
+
+		<!-- right_rear wheel -->
+		<link name="${name}_right_rear_wheel">
+			<collision>
+				<origin xyz="${wheel_width/2} 0 0" rpy="0 ${PI/2} 0"/>
+				<geometry>
+					<cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+				</geometry>
+			</collision>
+
+			<visual>
+				<origin xyz="${wheel_width/2} 0 0" rpy="0 ${PI/2} 0"/>
+				<geometry>
+					<cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+				</geometry>
+				<material name="RRBOT/black"/>
+			</visual>
+
+			<inertial>
+				<origin xyz="${wheel_width/2} 0 0" rpy="0 ${PI/2} 0"/>
+				<mass value="1"/>
+				<inertia
+					ixx="1.0" ixy="0.0" ixz="0.0"
+					iyy="1.0" iyz="0.0"
+					izz="1.0"/>
+			</inertial>
+		</link>
+
+		<link name="${name}_left_rear_wheel">
+			<collision>
+				<origin xyz="${wheel_width/2} 0 0" rpy="0 ${PI/2} 0"/>
+				<geometry>
+					<cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+				</geometry>
+			</collision>
+
+			<visual>
+				<origin xyz="${wheel_width/2} 0 0" rpy="0 ${PI/2} 0"/>
+				<geometry>
+					<cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+				</geometry>
+				<material name="RRBOT/black"/>
+			</visual>
+
+			<inertial>
+				<origin xyz="${wheel_width/2} 0 0" rpy="0 ${PI/2} 0"/>
+				<mass value="1"/>
+				<inertia
+					ixx="1.0" ixy="0.0" ixz="0.0"
+					iyy="1.0" iyz="0.0"
+					izz="1.0"/>
+			</inertial>
+		</link>
+
+		<!-- Front wheel -->
+		<link name="${name}_front_wheel">
+			<collision>
+				<origin xyz="${wheel_width/2} 0 0" rpy="0 ${PI/2} 0"/>
+				<geometry>
+					<cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+				</geometry>
+			</collision>
+
+			<visual>
+				<origin xyz="${wheel_width/2} 0 0" rpy="0 ${PI/2} 0"/>
+				<geometry>
+					<cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+				</geometry>
+				<material name="RRBOT/black"/>
+			</visual>
+
+			<inertial>
+				<origin xyz="${wheel_width/2} 0 0" rpy="0 ${PI/2} 0"/>
+				<mass value="1"/>
+				<inertia
+					ixx="1.0" ixy="0.0" ixz="0.0"
+					iyy="1.0" iyz="0.0"
+					izz="1.0"/>
+			</inertial>
+		</link>
+
+		<joint name="${name}_base_chassis_cross_chassis" type="fixed">
+			<parent link="${name}_base_chassis"/>
+			<child link="${name}_cross_chassis"/>
+			<origin xyz="0 ${base_chassis_length/2} ${wheel_radius + chassis_height/2}" rpy="0 0 0"/>
+			<axis xyz="0 0 1"/>
+			<limit lower="-${PI/4}" upper="${PI/4}" effort="10" velocity="0.5" />
+			<dynamics damping="0.7"/>
+		</joint>
+
+		<joint name="${name}_base_chassis_right_rear" type="revolute">
+			<parent link="${name}_base_chassis"/>
+			<child link="${name}_right_rear_wheel"/>
+			<origin xyz="${base_chassis_width/2} 0 ${wheel_radius + chassis_height/2}" rpy="0 0 0"/>
+			<axis xyz="1 0 0"/>
+			<limit lower="-1.57" upper="1.57" effort="10" velocity="0.5" />
+			<dynamics damping="0.7"/>
+		</joint>
+
+		<joint name="${name}_base_chassis_left_rear" type="revolute">
+			<parent link="${name}_base_chassis"/>
+			<child link="${name}_left_rear_wheel"/>
+			<origin xyz="${-base_chassis_width/2} 0 ${wheel_radius + chassis_height/2}" rpy="0 0 ${PI}"/>
+			<axis xyz="1 0 0"/>
+			<limit lower="-1.57" upper="1.57" effort="10" velocity="0.5" />
+			<dynamics damping="0.7"/>
+		</joint>
+
+		<joint name="${name}_cross_chassis_front_wheel" type="revolute">
+			<parent link="${name}_cross_chassis"/>
+			<child link="${name}_front_wheel"/>
+			<origin xyz="${cross_chassis_width/2} ${cross_chassis_length} 0" rpy="0 0 0"/>
+			<axis xyz="1 0 0"/>
+			<limit lower="-1.57" upper="1.57" effort="10" velocity="0.5" />
+			<dynamics damping="0.7"/>
+		</joint>
+
+		<transmission name="${name}_tran1">
+			<type>transmission_interface/SimpleTransmission</type>
+			<robotNamespace>${name}</robotNamespace>
+			<joint name="${name}_base_chassis_right_rear">
+				<hardwareInterface>PositionJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="${name}_motor1">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<transmission name="${name}_tran2">
+			<type>transmission_interface/SimpleTransmission</type>
+			<robotNamespace>${name}</robotNamespace>
+			<joint name="${name}_base_chassis_left_rear">
+				<hardwareInterface>PositionJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="${name}_motor2">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<transmission name="${name}_tran3">
+			<type>transmission_interface/SimpleTransmission</type>
+			<robotNamespace>${name}</robotNamespace>
+			<joint name="${name}_cross_chassis_front_wheel">
+				<hardwareInterface>PositionJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="${name}_motor3">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+			<!-- Instance your model behavior in Gazebo keeping the name -->
+		<xacro:rrbot_gazebo name="${name}"/>
+
+	</xacro:macro>
+
+</robot>

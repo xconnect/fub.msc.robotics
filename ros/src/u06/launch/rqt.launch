@@ -1,0 +1,5 @@
+<launch>
+  <arg name="i" />
+  <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" args="/oldX /oldY" />
+  <node name="trajectory" pkg="u06" type="u06_tf_listener" args="$(arg i)" />
+</launch>

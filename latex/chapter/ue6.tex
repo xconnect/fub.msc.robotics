@@ -1,0 +1,26 @@
+\chapter{Assignment 6}\label{ass6}
+
+\section{Task 1}\label{ass6_t1}
+
+Siehe angehangene Dateien.
+
+\section{Task 2}\label{ass6_t2}
+
+Aufstellen und Ausrechnen der Gleichung:
+\begin{align*}
+\left( \begin{matrix} \frac{1}{2} \\ 0 \\ 1 \end{matrix} \right) &= \left( \begin{matrix} cos(\Theta_1) & sin(\Theta_1) & l_1 \\ -sin(\Theta_1) & cos(\Theta_1) & 0 \\ 0 & 0 & 1 \end{matrix} \right) \cdot \left( \begin{matrix} cos(\Theta_2) & sin(\Theta_2) & 0 \\ -sin(\Theta_2) & cos(\Theta_2) & 0 \\ 0 & 0 & 1 \end{matrix} \right) \cdot \left( \begin{matrix} l_2 \\ 0 \\ 1 \end{matrix} \right)
+\end{align*}
+Beschreibung der Lösungsmenge mit einer der beiden Ergebnisgleichungen:
+\begin{align*}
+nullspace \left( \left( \begin{matrix} \frac{1}{2} \\ x_2 \end{matrix} \right) \right) &= \left\lbrace \left( \begin{matrix}\Theta_1 \\ \Theta_2 \end{matrix} \right) | 2 \cdot cos(\Theta_1) + \frac{18}{10} \cdot cos(\Theta_1 + \Theta_2) -1 = 0 \right\rbrace\\
+\end{align*}
+Der Winkel $\Theta_1$ wird aus der Lösungsmenge gew\"ahlt.\\
+Der Winkel $\Theta_2$ ist funktional abh\"angig vom Winkel $\Theta_1$:
+\begin{align*}
+\Theta_2 &= f(\Theta_1) \\
+f(\Theta_1) &= -\Theta_1 \pm cos^{-1}(\Theta_1) \left( -\frac{20}{18} \cdot cos(\Theta_1) -\frac{10}{18} \right)
+\end{align*}
+Daraus ergibt sich:
+\begin{align*}
+nullspace \left( \left( \begin{matrix} \frac{1}{2} \\ x_2 \end{matrix} \right) \right) &= \left\lbrace \left( \begin{matrix}\Theta_1 \\ f(\Theta_1) \end{matrix} \right) | 2 \cdot cos(\Theta_1) + \frac{18}{10} \cdot cos(\Theta_1 + f(\Theta_1)) -1 = 0 \right\rbrace\\
+\end{align*}

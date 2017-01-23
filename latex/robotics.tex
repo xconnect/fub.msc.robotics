@@ -1,0 +1,98 @@
+%\documentclass[a4paper,twoside,11pt,open=any]{scrbook}
+%damit die erste Seite einer Übung immer links gelocht ist:
+\documentclass[a4paper,11pt,open=any]{scrbook}
+
+\usepackage{fancyhdr}
+
+\usepackage[utf8]{inputenc}			%für deutsche Sonderzeichen
+%\usepackage[ngerman]{babel}			%für deutsches Datum
+\usepackage[UKenglish]{babel}
+%\usepackage[babel,german=quotes]{csquotes}	%deutsche Anführungszeichen
+\usepackage[T1]{fontenc}			%für Umlaute und Akzente
+\usepackage{graphicx}				%für Grafiken
+\usepackage{newcent}				%für Skalierbarkeit der Schrift
+\usepackage{amsmath}				%Verbesserung der Formeln
+\usepackage{amssymb}
+\usepackage{cancel}					%kürzen in Formeln
+\usepackage{ulem}					%für Unterstrich
+\usepackage{enumitem} 				%Aufzählungen
+
+
+\usepackage{geometry}
+\geometry{a4paper,left=25mm,right=15mm, top=10mm, bottom=25mm}
+
+\geometry{left=25mm, right=10mm}
+\geometry{top=30mm,bottom=30mm}
+\geometry{headheight=20mm}
+\geometry{headsep=5mm}
+\geometry{footskip=10mm} 
+
+
+\usepackage {tikz}
+\usetikzlibrary {positioning}
+\usepackage{url}
+\usepackage{xcolor}
+\definecolor{white} {rgb}{255, 255, 255}
+\definecolor{red} {rgb}{255, 0, 0}
+\usepackage[pdfstartview=FitBH, breaklinks = true, citebordercolor = white, linkbordercolor = white, urlbordercolor  = white]{hyperref}
+\hypersetup
+{
+	pdftitle = {Robotics Lehmann & Bullmann}
+	pdfsubject = {Robotics Lehmann & Bullmann},
+	pdfkeywords = {LaTeX, robotics, Tutorium, \"Ubungszettel},
+	pdfauthor = {Tom Bullmann},
+}
+
+%\renewcommand \thechapter {\arabic{chapter}.\hspace{0.5em}}
+%\renewcommand \thesection {\arabic{chapter}.\arabic{section}:}
+%\renewcommand \thesubsection {\arabic{chapter}.\arabic{section}.\arabic{subsection}:}
+\usepackage{tocloft} 
+\setlength{\cftsecnumwidth}{5.5em} % damit der lange String "Aufgabe 1" passt
+
+\addto\captionsUKenglish{%
+\renewcommand{\contentsname}{Table of Contents}}
+\renewcommand*\chapterheadstartvskip{\vspace*{0mm}}
+
+
+\usepackage{listings}
+\lstset{language=C,numbers=left,xleftmargin=10mm
+,commentstyle=\small\selectfont,basicstyle=\ttfamily\small\selectfont,
+    frame=single,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+
+\usepackage{tabularx}
+
+%\lstset{}
+
+	\fancypagestyle{plain}{
+		\fancyhf{}
+		\fancyhead[OL,ER]{WS 15/16 \\ \today}
+		\fancyhead[C]{\textbf{Robotics}  \\ Lecturer: Prof. Dr. Daniel G\"ohring }
+    \fancyhead[OR,EL]{Tom Bullmann \begin{tiny}(4280486)\end{tiny}\\
+    Nicolas Lehmann \begin{tiny}(4093195)\end{tiny} }
+		\renewcommand{\headrulewidth}{0.4pt} %obere Trennlinie
+		\fancyfoot[OR,EL]{\smallskip \thepage} %Seitennummer
+		\fancyfoot[C]{\tiny{Free Univertiy of Berlin\\Department of Mathematics and Computer Science\\Institute of Computer Science}}
+		\renewcommand{\footrulewidth}{0.4pt} %untere Trennlinie
+	}
+
+\begin{document}
+  \pagestyle{plain}
+  \input{deckblatt}
+  \pagenumbering{Roman}
+  \tableofcontents
+  \clearpage
+  \pagenumbering{arabic}
+  %\input{chapter/ue1}
+  %\input{chapter/ue2}
+  %\input{chapter/ue3}
+  %\input{chapter/ue4}
+  %\input{chapter/ue5}
+  %\input{chapter/ue6}
+  %\input{chapter/ue7}
+  %\input{chapter/ue8}
+  %\input{chapter/ue12}
+  \input{chapter/ue13}
+\end{document}

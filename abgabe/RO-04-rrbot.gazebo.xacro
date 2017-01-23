@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot name="rrbot_gazebo_model" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Define your model behavior in Gazebo -->
+  <xacro:macro name="rrbot_gazebo" params="name">
+
+    <!-- Propagate the name to all elements to make them unique and be consistent with URDF names -->
+
+    <!-- ros_control plugin -->
+    <gazebo>
+      <plugin name="${name}_hw_sim_plugin" filename="librrbot_hw_sim_plugin.so">
+        <robotNamespace>${name}</robotNamespace>
+        <!-- add your custom sim behavior -->
+        <robotSimType>rrbot_hw/DefaultRRBOTHWSim</robotSimType>
+      </plugin>
+    </gazebo>
+
+    <!-- Link1 -->
+    <gazebo reference="${name}_chassis">
+      <material>RRBOT/purple</material>
+    </gazebo>
+
+    <!-- Link2 -->
+    <gazebo reference="${name}_wheel1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <material>RRBOT/yellow</material>
+    </gazebo>
+
+    <!-- Link3 -->
+    <gazebo reference="${name}_wheel2">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <material>RRBOT/green</material>
+    </gazebo>
+
+    <!-- camera_link -->
+    <gazebo reference="${name}_wheel3">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <material>RRBOT/blue</material>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

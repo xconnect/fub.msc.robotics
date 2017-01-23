@@ -1,0 +1,157 @@
+\chapter{Assignment 12}\label{ass12}
+
+\section{Task 1}\label{ass12_t1}
+
+\subsection{a)}
+
+Gesucht sind die Parameter $a,b,c,d,h,i,j,k$ für zwei Splines $f\mathopen[0,1 \mathclose]\rightarrow \mathbb{R} ,g\mathopen[1,2\mathclose]\rightarrow \mathbb{R}$. Die gesuchten Funktionen mit ihren Ableitungen sind
+
+\begin{align}
+f(x) &=a \cdot x^3+b \cdot x^2+c \cdot x+d \\
+f'(x) &= 3 \cdot a \cdot x^2+2 \cdot b \cdot x+c \\
+f''(x) &= 6 \cdot a \cdot x+2 \cdot b \\
+g(x)&=h\cdot x^3+i\cdot x^2+j\cdot x+k \\
+g'(x)&=3\cdot h\cdot x^2+2\cdot i\cdot x+j \\	
+g''(x)&=6\cdot h\cdot x+2\cdot i \\
+\end{align}
+Aus der Beschreibung sind direkt die folgenden Eigenschaften abzulesen
+\begin{align}
+f(0) &= 0 \\
+f'(0) &= 0 \\
+g(2) &= 8 \\
+g'(2) &= 8 \\
+f''(1) &= 0 \\
+g''(1) &= 0 \\
+\end{align}
+Um das soweit unterbestimmte Gleichungssystem lösen zu können, verwenden wir als zusätzliche Eigenschaft die Tatsache, dass sich $f$ und $g$ an der Grenze ihrer Definitionsbereiche bei $x=1$ schneiden müssen. Es gilt also zusätzlich
+\begin{align}
+f(1) &= g(1)\\
+f'(1) &= g'(1)
+\end{align}
+Ausformuliert erhält man somit ein lineares Gleichungssystem
+\begin{align}
+d &= 0\\
+k &= 0\\
+8 \cdot h+4 \cdot i+2 \cdot j &= 8 \\
+12 \cdot h+4 \cdot i+j &= 8 \\
+6 \cdot a+2 \cdot b &= 0 \\
+6 \cdot h+2 \cdot i &= 0 \\
+a+b+c &= h+i+j \\
+3 \cdot a+2 \cdot b+c &= 3 \cdot h+2 \cdot i+j \\
+\end{align}
+$d,k$ sind also an dieser Stelle bereits bekannt. Für die übrigen Parameter lösen wir mittels Gaussschem Eliminierungsverfahren:
+\begin{center}
+\begin{tabular}{ccccccc}
+$a$&$b$&$c$&$h$&$i$&$j$&$=$\\
+\hline
+0&0&0&8&4&2&8 \\
+0&0&0&12&4&1&8 \\
+6&2&0&0&0&0&0 \\
+0&0&0&6&2&0&0 \\
+1&1&1&-1&-1&-1&0 \\
+3&2&1&-3&-2&-1&0
+\end{tabular}
+\end{center}
+Zuerst etwas umsortieren
+\begin{center}
+\begin{tabular}{ccccccc}
+$a$&$b$&$c$&$h$&$i$&$j$&$=$ \\
+\hline
+1&1&1&-1&-1&-1&0 \\
+3&2&1&-3&-2&-1&0 \\
+6&2&0&0&0&0&0 \\
+0&0&0&6&2&0&0 \\
+0&0&0&8&4&2&8 \\
+0&0&0&12&4&1&8
+\end{tabular}
+\end{center}
+$a$-Spalte eliminieren
+\begin{center}
+\begin{tabular}{ccccccc}
+$a$&$b$&$c$&$h$&$i$&$j$&$=$\\
+\hline
+1&1&1&-1&-1&-1&0 \\
+0&-1&-2&0&1&2&0 \\
+0&-4&-6&6&6&6&0 \\
+0&0&0&6&2&0&0 \\
+0&0&0&8&4&2&8 \\
+0&0&0&12&4&1&8
+\end{tabular}
+\end{center}
+$b$-Spalte eliminieren
+\begin{center}
+\begin{tabular}{ccccccc}
+$a$&$b$&$c$&$h$&$i$&$j$&$=$\\
+\hline
+1&1&1&-1&-1&-1&0 \\
+0&1&2&0&-1&-2&0 \\
+0&0&2&6&2&-2&0 \\
+0&0&0&6&2&0&0 \\
+0&0&0&8&4&2&8 \\
+0&0&0&12&4&1&8
+\end{tabular}
+\end{center}
+$c$-Spalte sieht schon gut aus, deshalb weiter mit $h$
+\begin{center}
+\begin{tabular}{ccccccc}
+$a$&$b$&$c$&$h$&$i$&$j$&$=$ \\
+\hline
+1&1&1&-1&-1&-1&0 \\
+0&1&2&0&-1&-2&0 \\
+0&0&1&3&1&-1&0 \\
+0&0&0&6&2&0&0 \\
+0&0&0&0&4&6&24 \\
+0&0&0&0&0&1&8 \\
+\end{tabular}
+\end{center}
+So ein Glück $i,j$ ergeben sich direkt! Von unten nach oben können nun alle Parameter ausgerechnet werden, zu
+\begin{align}
+&a=2,b=-6,c=8,\\
+&h=2,i=-6,j=8
+\end{align}
+Eine partielle Interpolation war hier also gar nicht nötig - ein einziges Polynom $e\mathopen[0,2\mathclose]\rightarrow \mathbb{R}$ genügt, um alle Eigenschaften zu erfüllen.\\
+\\
+Ergebnis:
+$$e(x)=2 \cdot x^3-6 \cdot x^2+2 \cdot x$$
+
+\subsection{b)}
+Auch wenn $f=g=e$ sind hier unabhängig von einander $f$ in blau und $g$ in rot geplottet (Abbildung \ref{fig1}).
+
+\begin{figure}[!htpb]
+\centering
+\includegraphics[width=\linewidth]{img/capture_1-1.jpg}
+\caption{Spline}
+\label{fig1}
+\end{figure}
+
+\subsection{c)}
+
+Der Schnittpunkt $(x_s,y_s)$ ist vorgegeben bei $x_s=1$ mit
+$y_s=e(1)=a+b+c=4$
+Die Geschwindigkeit $v$ ist dort
+$v=e'(1)=3\cdot a+2\cdot b+c=2$
+
+
+\subsection{Task 3}\label{ass12_t3}
+
+\subsection{a)}
+
+Wir definieren Ereignis $A$ als "keine Enten sind zu sehen" und Ereignis $B$ als "Krokodile sind zu sehen".\\
+Wir wissen $P(\neg A) = (P(\neg A| B) + P(\neg A | \neg B)) = (0.1+0.5) = 0.6$.\\
+Daraus folgt $P(A) = 1 - P(l\not A) = 0.4$\\
+Außerdem wissen wir $P(B) = P(\neg A | B) + P(A | B)$.\\
+Das stellen wir um nach $P(A|B) = P(B) - P(\neg A | B)$ und rechnen aus $P(A|B) = 0.2 - 0.03 = 0.17$.\\
+\\
+Weil wir alle benötigten Variablen haben, setzen wir in den Satz von Bayes ein
+Es gilt der Satz von Bayes $P(B|A) = \frac{P(A|B) \cdot P(B)}{P(A)} = \frac{0.17 \cdot 0.2}{0.4} = 0.085$.
+
+\subsection{b)}
+Die Variablen $\neg A$ und $B$ sind abhängig.\\
+\\
+Beweis durch Widerspruch:\\
+\\
+Angenommen $\neg A$ und $B$ sind unabhängig, dann gilt $P(\neg A|B) = P(\neg A)$.
+\\
+$0.1 \neq 0.6$ Widerspruch $q.e.d.$
+
+

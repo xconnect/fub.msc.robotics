@@ -1,0 +1,102 @@
+\chapter{Assignment 3}\label{ass3}
+
+\section{Task 1}\label{ass3_t1}
+
+\subsection{a}\label{ass3_t1_a}
+
+We assume that the given vectors in \{A\} are unit vetors.
+
+\begin{equation}
+  ^{B}_{A}T
+  =
+  \begin{pmatrix}
+    0   & -1  & 0   & -3  \\
+    -1  & 0   & 0   & -2  \\
+    0   & 0   & -1  & -2  \\
+    0   & 0   & 0   & 1
+  \end{pmatrix}
+\end{equation}
+
+\subsection{b}\label{ass3_t1_b}
+
+\begin{equation}
+  v_{B}
+  =
+  \begin{pmatrix}
+    1 \\
+    -2\\
+    3
+  \end{pmatrix}
+\end{equation}
+\begin{equation}
+  ^{A}v_{B}
+  =
+  ^{B}_{A}T\cdot v_{B}
+  =
+  \begin{pmatrix}
+    0   & -1  & 0   & -3  \\
+    -1  & 0   & 0   & -2  \\
+    0   & 0   & -1  & -2  \\
+    0   & 0   & 0   & 1
+  \end{pmatrix}
+  \cdot
+  \begin{pmatrix}
+    1 \\
+    -2\\
+    3 \\
+    1
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    0\cdot 1  &+& -1\cdot -2 &+& 0\cdot 3  &+& -3\cdot 1 \\
+    -1\cdot 1 &+& 0\cdot -2  &+& 0\cdot 3  &+& -2\cdot 1 \\
+    0\cdot 1  &+& 0\cdot -2  &+& -1\cdot 3 &+& -2\cdot 1 \\
+    0\cdot 1  &+& 0\cdot -2  &+& 0\cdot 3  &+& 1\cdot 1
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    -1 \\
+    -3\\
+    -5 \\
+    1
+  \end{pmatrix}
+\end{equation}
+
+
+\section{Task 2}\label{ass3_t2}
+
+\subsection{a}\label{ass3_t2_a}
+
+Output from the talker/chatter:
+\begin{lstlisting}
+[ INFO] [1447112923.955038907]: count: 1, Random number: 83
+[ INFO] [1447112923.955403754]: count: 2, oldNumber: 83, incoming number: 182, outgoing number: 265
+[ INFO] [1447112924.955113306]: count: 3, oldNumber: 265, incoming number: 530, outgoing number: 795
+[ INFO] [1447112924.956239674]: count: 4, oldNumber: 795, incoming number: 1325, outgoing number: 2120
+[ INFO] [1447112924.957031112]: count: 5, oldNumber: 2120, incoming number: 3445, outgoing number: 5565
+[ INFO] [1447112924.957963184]: count: 6, oldNumber: 5565, incoming number: 9010, outgoing number: 14575
+[ INFO] [1447112924.958748419]: count: 7, oldNumber: 14575, incoming number: 23585, outgoing number: 38160
+[ INFO] [1447112924.959570396]: count: 8, oldNumber: 38160, incoming number: 61745, outgoing number: 99905
+[ INFO] [1447112924.960333586]: count: 9, oldNumber: 99905, incoming number: 161650, outgoing number: 261555
+[ INFO] [1447112924.961155844]: count: 10, oldNumber: 261555, incoming number: 423205, outgoing number: 684760
+\end{lstlisting}
+
+Output from the listener:
+\begin{lstlisting}
+[ INFO] [1447112922.956032343]: count: 1, oldNumber: 99, incoming number: 83, outgoing number: 182
+[ INFO] [1447112923.955724576]: count: 2, oldNumber: 182, incoming number: 83, outgoing number: 265
+[ INFO] [1447112923.955932006]: count: 3, oldNumber: 265, incoming number: 265, outgoing number: 530
+[ INFO] [1447112924.955830461]: count: 4, oldNumber: 530, incoming number: 795, outgoing number: 1325
+[ INFO] [1447112924.956670109]: count: 5, oldNumber: 1325, incoming number: 2120, outgoing number: 3445
+[ INFO] [1447112924.957561409]: count: 6, oldNumber: 3445, incoming number: 5565, outgoing number: 9010
+[ INFO] [1447112924.958415454]: count: 7, oldNumber: 9010, incoming number: 14575, outgoing number: 23585
+[ INFO] [1447112924.959119514]: count: 8, oldNumber: 23585, incoming number: 38160, outgoing number: 61745
+[ INFO] [1447112924.959956892]: count: 9, oldNumber: 61745, incoming number: 99905, outgoing number: 161650
+[ INFO] [1447112924.960733532]: count: 10, oldNumber: 161650, incoming number: 261555, outgoing number: 423205
+\end{lstlisting}
+
+Source code is in the files listener.cpp and talker.cpp.
+
+\subsection{b}\label{ass3_t2_b}
+
+Unfortunately the display.launch from the arm2f repositiory could not be used to run the simulation, due to some error in the display.launch file it seems, therefore we were not able to solve this task.
